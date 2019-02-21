@@ -12,11 +12,11 @@ var chartColors = [
   'rgb(201, 203, 207)'
 ]
 
-var data
-var MINUTES_BEFORE_INTAKE = 15
-var MINUTES_AFTER_INTAKE = 185
-var Y_AXIS_MIN_MGDL = 70
-var Y_AXIS_MAX_MGDL = 140
+
+
+function add_date_minutes(d, m) {
+  return new Date(d.getTime() + 1000 * 60 * m)
+}
 
 $(document).ready(function () {
   loadData(function () {
@@ -34,9 +34,17 @@ $(document).ready(function () {
 
       glucose_graph({
         title: e.name,
-        start: e.datetime,
-        stop: new Date(e.datetime.getTime() + 1000 * 60 * 120),
-        colorIdx: 0
+        start: add_date_minutes(e.datetime, -60),
+        stop: add_date_minutes(e.datetime, 3 * 60),
+        mark: {
+          label: e.name,
+          t: e.datetime
+        },
+        colorIdx: 0,
+        marks: [{
+          label: e.name,
+          time: e.datetime
+        }]
       })
     }
   })

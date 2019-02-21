@@ -1,5 +1,7 @@
 var include_before_after_minutes = 17
 var dt = include_before_after_minutes * 60 * 1000
+var Y_AXIS_MIN_MGDL = 70
+var Y_AXIS_MAX_MGDL = 140
 
 function glucose_graph(options) {
   var gdata = []
@@ -104,6 +106,6 @@ function glucose_graph(options) {
       },
     },
 
-    //lineAt: [0]
+    marks: options.marks
   });
 }

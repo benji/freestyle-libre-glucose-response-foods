@@ -1,18 +1,11 @@
 const verticalLinePlugin = {
     getLinePositionFromTime: function (chart, time) {
         var xscale = chart.scales['x-axis-0']
-        console.log(123)
-        console.log(xscale)
-        console.log(time)
-        console.log(321)
-        console.log(xscale.min)
-        console.log(xscale.max)
         var xratio = (time - xscale.min) / (xscale.max - xscale.min)
-        console.log(xratio)
-
-        return xscale.left + (xscale.right - xscale.left) * xratio
+        var xpos = xscale.left + (xscale.right - xscale.left) * xratio
+        return xpos
     },
-    renderVerticalLineAtTime: function (chartInstance, time) {
+    renderVerticalLineAtTime: function (chartInstance, time, label) {
         const lineLeftOffset = this.getLinePositionFromTime(chartInstance, time);
         const scale = chartInstance.scales['y-axis-0'];
         const context = chartInstance.chart.ctx;
@@ -27,12 +20,14 @@ const verticalLinePlugin = {
         // write label
         context.fillStyle = "#ff0000";
         context.textAlign = 'center';
-        context.fillText('intake', lineLeftOffset, (scale.bottom - scale.top) / 2 + scale.top);
+        context.fillText(label, lineLeftOffset, (scale.bottom - scale.top) / 2 + scale.top);
     },
 
     afterDatasetsDraw: function (chart, easing) {
-        if (chart.config.lineAt) {
-            chart.config.lineAt.forEach(time => this.renderVerticalLineAtTime(chart, time));
+        if (chart.config.marks) {
+            chart.config.marks.forEach(mark => {
+                this.renderVerticalLineAtTime(chart, mark.time, mark.label)
+            });
         }
     }
 };

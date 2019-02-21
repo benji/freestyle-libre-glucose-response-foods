@@ -44,9 +44,9 @@ function loadData(onReady) {
     success: function (data) {
       loadCSV(data, 1, function (parts) {
         return {
-          name: parts[0],
-          qty: parts[1] + parts[2],
-          datetime: moment(parts[3], "YYYY-MM-DD HH:mm").toDate()
+          type: parts[0],
+          name: parts[1],
+          datetime: moment(parts[2], "YYYY-MM-DD HH:mm").toDate()
         }
       }, function (_events) {
         events = _events
