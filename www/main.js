@@ -19,8 +19,7 @@ var Y_AXIS_MIN_MGDL = 70
 var Y_AXIS_MAX_MGDL = 140
 
 $(document).ready(function () {
-  loadData(function (_data) {
-    data = _data
+  loadData(function () {
     console.log(data)
 
     glucose_graph({
@@ -29,5 +28,16 @@ $(document).ready(function () {
       stop: data[data.length - 1].datetime,
       colorIdx: 0
     })
+
+    for (var i in events) {
+      var e = events[i]
+
+      glucose_graph({
+        title: e.name,
+        start: e.datetime,
+        stop: new Date(e.datetime.getTime() + 1000 * 60 * 120),
+        colorIdx: 0
+      })
+    }
   })
 })

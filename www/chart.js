@@ -1,12 +1,17 @@
+var include_before_after_minutes = 17
+var dt = include_before_after_minutes * 60 * 1000
 
 function glucose_graph(options) {
   var gdata = []
 
   for (var i in data) {
-    gdata.push({
-      x: data[i].datetime,
-      y: data[i].glucose
-    })
+    var t = data[i].datetime.getTime()
+    if (t >= options.start.getTime() - dt && t <= options.stop.getTime() + dt) {
+      gdata.push({
+        x: data[i].datetime,
+        y: data[i].glucose
+      })
+    }
   }
 
   var datasets = [{
