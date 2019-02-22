@@ -1,3 +1,5 @@
-type,name,datetime
-life,wakeup,2019-02-20 08:15
-life,driving,2019-02-20 12:15
+type,name,starttime,stoptime,comments
+food,rice,2019-02-21 09:34,2019-02-21 09:46,1/2 cup uncooked - rice cooker - cooled down - microwaved
+food,chocolate,2019-02-21 13:36,2019-02-21 13:42,milk; 100g ; 32% wholefoods full bar
+life,workout,2019-02-21 17:30:10,2019-02-21 18:30,crossfit endurance day
+food,pasta,2019-02-21 20:10,2019-02-21 20:30,Traders Joe authentic italian pasta - spaguetti - 200g
