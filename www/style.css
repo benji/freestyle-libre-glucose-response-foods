@@ -11,3 +11,7 @@ h1 {
   height: 400px;
   margin-bottom: 20px;
 }
+
+#overview-wrap {
+  overflow: auto;
+}

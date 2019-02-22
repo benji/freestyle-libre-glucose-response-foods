@@ -11,10 +11,10 @@ var onLoadedResource = function (onReady) {
   if (loadedResources == TotalResources) onReady();
 }
 
-function loadData(onReady) {
+function loadData(dataURL, eventsURL, onReady) {
   $.ajax({
     type: "GET",
-    url: "../data/freestyle-libre-data.csv",
+    url: dataURL + "?ts=" + (new Date().getTime()),
     dataType: "text",
     success: function (_data) {
       loadCSV(_data, 2, function (parts) {
@@ -39,14 +39,15 @@ function loadData(onReady) {
 
   $.ajax({
     type: "GET",
-    url: "../data/events.csv",
+    url: eventsURL + "?ts=" + (new Date().getTime()),
     dataType: "text",
     success: function (data) {
       loadCSV(data, 1, function (parts) {
         return {
           type: parts[0],
           name: parts[1],
-          datetime: moment(parts[2], "YYYY-MM-DD HH:mm").toDate()
+          startdate: moment(parts[2], "YYYY-MM-DD HH:mm").toDate(),
+          stopdate: moment(parts[3], "YYYY-MM-DD HH:mm").toDate()
         }
       }, function (_events) {
         events = _events

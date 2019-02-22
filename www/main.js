@@ -12,40 +12,36 @@ var chartColors = [
   'rgb(201, 203, 207)'
 ]
 
-
-
 function add_date_minutes(d, m) {
   return new Date(d.getTime() + 1000 * 60 * m)
 }
 
-$(document).ready(function () {
-  loadData(function () {
-    console.log(data)
+function renderUI() {
+  glucose_graph({
+    root: $('#overview-wrap'),
+    title: 'overview',
+    start: data[0].datetime,
+    stop: data[data.length - 1].datetime,
+    colorIdx: 0,
+    scroll: true
+  })
+
+  for (var i in events) {
+    var e = events[i]
 
     glucose_graph({
-      title: 'overview',
-      start: data[0].datetime,
-      stop: data[data.length - 1].datetime,
+      root: $('#charts'),
+      title: e.name,
+      start: add_date_minutes(e.startdate, -63),
+      stop: add_date_minutes(e.stopdate, 3 * 60),
       colorIdx: 0
     })
+  }
+}
 
-    for (var i in events) {
-      var e = events[i]
-
-      glucose_graph({
-        title: e.name,
-        start: add_date_minutes(e.datetime, -60),
-        stop: add_date_minutes(e.datetime, 3 * 60),
-        mark: {
-          label: e.name,
-          t: e.datetime
-        },
-        colorIdx: 0,
-        marks: [{
-          label: e.name,
-          time: e.datetime
-        }]
-      })
-    }
-  })
+$(document).ready(function () {
+  loadData(
+    '../data/freestyle-libre-data.csv',
+    '../data/events.csv',
+    renderUI)
 })

@@ -1,7 +1,7 @@
 var include_before_after_minutes = 17
 var dt = include_before_after_minutes * 60 * 1000
 var Y_AXIS_MIN_MGDL = 70
-var Y_AXIS_MAX_MGDL = 140
+var Y_AXIS_MAX_MGDL = 180
 
 function glucose_graph(options) {
   var gdata = []
@@ -27,15 +27,54 @@ function glucose_graph(options) {
     data: gdata
   }]
 
-  var root = $('#charts')
+
+  var marks = []
+  var greenzoneColor = 'rgb(75, 192, 192,0.1)'
+  var annotations = [{
+    id: 'box000',
+    type: 'box',
+    yScaleID: 'y-axis-0',
+    yMin: 80,
+    yMax: 130,
+    backgroundColor: greenzoneColor,
+    borderColor: greenzoneColor
+  }]
+
+  for (var i in events) {
+    var e = events[i]
+    if (e.stopdate.getTime() >= options.start.getTime() && e.startdate.getTime() <= options.stop.getTime()) {
+      marks.push({
+        label: e.name,
+        time: e.startdate
+      })
+      annotations.push({
+        id: 'box' + i,
+        type: 'box',
+        xScaleID: 'x-axis-0',
+        xMin: e.startdate.getTime(),
+        xMax: e.stopdate.getTime(),
+        backgroundColor: 'rgba(100, 100, 100, 0.2)',
+        borderColor: 'rgba(100, 100, 100, 0.2)',
+      })
+    }
+  }
 
   var chartDiv = $('<div class=\'chart-container\'></div>')
-  root.append(chartDiv)
+  options.root.append(chartDiv)
+
+  if (options.scroll) {
+    var days = (options.stop.getTime() - options.start.getTime()) / (1000 * 60 * 60 * 24)
+    var withpx = parseInt(1500 * days)
+    chartDiv.width('' + withpx + 'px')
+    options.root.scrollLeft(1000)
+  }
+
   var $canvas = $('<canvas></canvas>')
   var canvas = $canvas.get()[0]
   chartDiv.append(canvas)
 
   var ctx = canvas.getContext('2d');
+
 
   new Chart(ctx, {
     type: 'line',
@@ -44,6 +83,10 @@ function glucose_graph(options) {
       displayColors: true
     },
     options: {
+      annotation: {
+        drawTime: "afterDraw",
+        annotations: annotations
+      },
       elements: {
         point: {
           pointStyle: 'star'
@@ -106,6 +149,6 @@ function glucose_graph(options) {
       },
     },
 
-    marks: options.marks
+    marks: marks
   });
 }
