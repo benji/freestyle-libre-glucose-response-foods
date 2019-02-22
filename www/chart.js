@@ -29,15 +29,15 @@ function glucose_graph(options) {
 
 
   var marks = []
-  var greenzoneColor = 'rgb(75, 192, 192,0.1)'
+  var greenzoneColor = 'rgba(100 ,200, 100, 0.2)'
   var annotations = [{
-    id: 'box000',
+    id: 'boxGlucoseNormalLevels',
     type: 'box',
     yScaleID: 'y-axis-0',
     yMin: 80,
     yMax: 130,
     backgroundColor: greenzoneColor,
-    borderColor: greenzoneColor
+    borderColor: greenzoneColor,
   }]
 
   for (var i in events) {
@@ -64,9 +64,9 @@ function glucose_graph(options) {
 
   if (options.scroll) {
     var days = (options.stop.getTime() - options.start.getTime()) / (1000 * 60 * 60 * 24)
-    var withpx = parseInt(1500 * days)
-    chartDiv.width('' + withpx + 'px')
-    options.root.scrollLeft(1000)
+    var widthpx = parseInt(1500 * days)
+    chartDiv.width('' + widthpx + 'px')
+    options.root.scrollLeft(widthpx)
   }
 
   var $canvas = $('<canvas></canvas>')

@@ -21,17 +21,20 @@
   <script src="vendors/chartjs-plugin-annotation.min.js"></script>
   <script src="chartjs-plugin-vertical-line.js"></script>
 
-  <script src="loadcsv.js"></script>
-  <script src="chart.js"></script>
-  <script src="main.js"></script>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <script>
+    var ts= new Date().getTime()
+    $.getScript("loadcsv.js?ts="+ts)
+    $.getScript("chart.js?ts="+ts)
+    $.getScript("main.js?ts="+ts)
+</script>
 
-  <title>Glycemic Responses to Food</title>
+  <link rel="stylesheet" type="text/css" href="style.css?v=1">
+
+  <title>Glucose response</title>
 </head>
 
 <body>
   <div class="container">
-    <h1>Glycemic Reponses to Food</h1>
     <div id="overview-wrap"></div>
     <div id="charts"></div>
   </div>
