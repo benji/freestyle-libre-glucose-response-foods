@@ -31,6 +31,7 @@ function loadData(dataURL, eventsURL, onReady) {
           glucose: parseInt(glucose)
         }
       }, function (_data) {
+        console.log(_data)
         data = _data
         onLoadedResource(onReady)
       });
@@ -43,12 +44,15 @@ function loadData(dataURL, eventsURL, onReady) {
     dataType: "text",
     success: function (data) {
       loadCSV(data, 1, function (parts) {
-        return {
+        var o = {
           type: parts[0],
-          name: parts[1],
-          startdate: moment(parts[2], "YYYY-MM-DD HH:mm").toDate(),
-          stopdate: moment(parts[3], "YYYY-MM-DD HH:mm").toDate()
+          name: parts[2],
+          startdate: moment(parts[3], "YYYY-MM-DD HH:mm").toDate(),
+          stopdate: moment(parts[4], "YYYY-MM-DD HH:mm").toDate()
         }
+        if (parts[1] != '') o.groupby = parts[1]
+        if (parts[5] != '') o.endresponse = moment(parts[5], "YYYY-MM-DD HH:mm").toDate()
+        return o
       }, function (_events) {
         events = _events
         onLoadedResource(onReady)
