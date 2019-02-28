@@ -45,7 +45,8 @@ function get_event_dataset(e) {
 function renderUI() {
   var overview_dataset = {
     data: [],
-    label: 'glucose'
+    label: 'glucose',
+    pointRadius: 0
   }
   for (var i in data) {
     overview_dataset.data.push({

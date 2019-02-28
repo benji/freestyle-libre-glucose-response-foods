@@ -13,7 +13,7 @@ function glucose_graph(options) {
       borderWidth: 1,
       borderColor: chartColors[i],
       backgroundColor: chartColors[i],
-      pointRadius: 5,
+      pointRadius: typeof (dataset.pointRadius) == 'undefined' ? 5 : dataset.pointRadius,
       pointHoverRadius: 15,
       fill: false,
       data: dataset.data
