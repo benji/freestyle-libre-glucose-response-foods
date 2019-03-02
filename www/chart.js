@@ -11,8 +11,8 @@ function glucose_graph(options) {
     datasets.push({
       label: dataset.label,
       borderWidth: 1,
-      borderColor: chartColors[i],
-      backgroundColor: chartColors[i],
+      borderColor: dataset.color,
+      backgroundColor: dataset.color,
       pointRadius: typeof (dataset.pointRadius) == 'undefined' ? 5 : dataset.pointRadius,
       pointHoverRadius: 15,
       fill: false,
@@ -55,6 +55,7 @@ function glucose_graph(options) {
   new Chart(ctx, {
     type: 'line',
     data: {
+      labels:['hiit'],
       datasets: datasets,
       displayColors: true
     },

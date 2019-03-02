@@ -26,7 +26,8 @@ function get_event_dataset(e) {
 
   var edataset = {
     data: [],
-    label: e.name
+    label: e.name,
+    color: chartColors[0]
   }
   for (var i in data) {
     var t = data[i].datetime.getTime()
@@ -46,7 +47,8 @@ function renderUI() {
   var overview_dataset = {
     data: [],
     label: 'glucose',
-    pointRadius: 0
+    pointRadius: 0,
+    color: chartColors[0]
   }
   for (var i in data) {
     overview_dataset.data.push({
@@ -57,10 +59,12 @@ function renderUI() {
 
   glucose_graph({
     root: $('#overview-wrap'),
-    title: 'overview',
+    title: 'Overall Glucose',
     datasets: [overview_dataset],
     scroll: true,
-    x_type: 'time'
+    x_type: 'time',
+    x_min:new Date(),
+    x_max:new Date()
   })
 
   var events_per_group = {}
@@ -74,9 +78,16 @@ function renderUI() {
 
   for (var g in events_per_group) {
     var datasets = []
+    var colorsIdxMap = {},
+      nextAvailColorIdx = 0
     for (var i in events_per_group[g]) {
-      console.log(events_per_group[g][i])
-      datasets.push(get_event_dataset(events_per_group[g][i]))
+      var e = events_per_group[g][i]
+
+      if (!(e.name in colorsIdxMap)) colorsIdxMap[e.name] = nextAvailColorIdx++
+
+      var dataset = get_event_dataset(e)
+      dataset.color = chartColors[colorsIdxMap[e.name]]
+      datasets.push(dataset)
     }
 
     glucose_graph({
