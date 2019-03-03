@@ -62,9 +62,7 @@ function renderUI() {
     title: 'Overall Glucose',
     datasets: [overview_dataset],
     scroll: true,
-    x_type: 'time',
-    x_min:new Date(),
-    x_max:new Date()
+    x_type: 'time'
   })
 
   var events_per_group = {}

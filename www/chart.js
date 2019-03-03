@@ -51,11 +51,14 @@ function glucose_graph(options) {
 
   var ctx = canvas.getContext('2d');
 
+  var x_ticks = {}
+  if (options.x_min) x_ticks.min = options.x_min
+  if (options.x_max) x_ticks.max = options.x_max
+  if (options.x_step) x_ticks.stepSize = options.x_step
 
   new Chart(ctx, {
     type: 'line',
     data: {
-      labels:['hiit'],
       datasets: datasets,
       displayColors: true
     },
@@ -91,11 +94,7 @@ function glucose_graph(options) {
             display: true,
             labelString: 'time'
           },
-          ticks: {
-            min: options.x_min,
-            max: options.x_max,
-            stepSize: options.x_step
-          }
+          ticks: x_ticks
         }],
         yAxes: [{
           type: 'linear',

@@ -26,10 +26,11 @@ function loadData(dataURL, eventsURL, onReady) {
         if (glucose == '') glucose = parts[5]
         if (glucose == '') throw 'Glucose value not found.'
 
-        return {
+        var o = {
           datetime: datetime,
           glucose: parseInt(glucose)
         }
+        return o
       }, function (_data) {
         console.log(_data)
         data = _data
