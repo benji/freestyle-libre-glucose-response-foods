@@ -32,7 +32,6 @@ function loadData(dataURL, eventsURL, onReady) {
         }
         return o
       }, function (_data) {
-        console.log(_data)
         data = _data
         onLoadedResource(onReady)
       });

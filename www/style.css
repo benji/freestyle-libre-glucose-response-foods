@@ -7,6 +7,8 @@ h1 {
   text-align: center;
 }
 
+#charts { text-align:center; }
+
 .chart-container {
   width: 100%;
   height: 400px;

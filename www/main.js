@@ -74,6 +74,8 @@ function renderUI() {
     }
   }
 
+  $('#charts').empty()
+
   for (var g in events_per_group) {
     var datasets = []
     var colorsIdxMap = {},
