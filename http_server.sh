@@ -3,4 +3,4 @@ set -e
 
 cd "`dirname "$0"`"
 
-python -m SimpleHTTPServer 5001
+python -m http.server 5001
